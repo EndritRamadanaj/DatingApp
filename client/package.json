@@ -23,6 +23,7 @@
     "bootswatch": "^5.2.3",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^16.1.0",
     "primeicons": "^6.0.1",
     "primeng": "^14.2.3",
