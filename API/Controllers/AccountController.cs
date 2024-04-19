@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
@@ -23,7 +25,8 @@ namespace API.Controllers
             _context = context;
             _tokenService = tokenService;
         }
-
+        
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register( RegisterDTO registerDTO)
         {
@@ -46,7 +49,7 @@ namespace API.Controllers
                 Token = _tokenService.CreateToken(user)
             };
         }
-
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
