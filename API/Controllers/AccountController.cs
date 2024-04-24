@@ -26,7 +26,6 @@ namespace API.Controllers
             _tokenService = tokenService;
         }
         
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register( RegisterDTO registerDTO)
         {
