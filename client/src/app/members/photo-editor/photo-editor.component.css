@@ -1,0 +1,11 @@
+.nv-file-over {
+    border: dotted 3px red;
+}
+
+input[type=file] {
+    color: transparent;
+}
+
+.btn.btn-sm {
+    margin-right: 5px;
+}
