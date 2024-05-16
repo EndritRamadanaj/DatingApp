@@ -44,7 +44,9 @@ namespace API.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
-            return await _uow.UserRepository.GetMemberAsync(username);
+            var currentUsername = User.GetUsername();
+
+            return await _uow.UserRepository.GetMemberAsync(username, isCurrentUser: currentUsername == username);
         }
 
         [HttpPut]
@@ -66,9 +68,7 @@ namespace API.Controllers
         {
             var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            if (user == null) return NotFound();
-
-            var result = await _photoService.AddPhotoASync(file);
+            var result = await _photoService.AddPhotoAsync(file);
 
             if (result.Error != null) return BadRequest(result.Error.Message);
 
@@ -77,8 +77,6 @@ namespace API.Controllers
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
-
-            if (user.photos.Count == 0) photo.IsMain = true;
 
             user.photos.Add(photo);
 
@@ -118,7 +116,7 @@ namespace API.Controllers
         {
             var user = await _uow.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
-            var photo = user.photos.FirstOrDefault(x => x.Id == photoId);
+            var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
 
             if (photo == null) return NotFound();
 
@@ -126,7 +124,7 @@ namespace API.Controllers
 
             if (photo.PublicId != null)
             {
-                var result = await _photoService.DeletePhotoASync(photo.PublicId);
+                var result = await _photoService.DeletePhotoAsync(photo.PublicId);
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }
             user.photos.Remove(photo);
