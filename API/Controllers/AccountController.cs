@@ -16,7 +16,6 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
 {
-    [Authorize]
     public class AccountController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
@@ -30,7 +29,6 @@ namespace API.Controllers
             _mapper = mapper;
         }
         
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
@@ -57,7 +55,6 @@ namespace API.Controllers
             };
         }
 
-        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {

@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for livedatingapp on 2024-05-16T16:41:19+02:00
+# fly.toml app configuration file generated for livedatingapp on 2024-05-16T17:57:55+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'livedatingapp'
-primary_region = 'ams'
+primary_region = 'otp'
 
 [build]
   image = 'eramadanaj/datingapp:latest'
@@ -12,7 +12,7 @@ primary_region = 'ams'
 [env]
   ASPNETCORE_URLS="http://+:8080"
   CloudinarySettings__CloudName="dn7jjn8fj"
-  CloudinarySettings__ApiKey="196388177364485"
+  CloudinarySettings__ApiKey=196388177364485
 
 [http_service]
   internal_port = 8080
